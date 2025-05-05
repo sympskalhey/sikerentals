@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { z } from "zod";
@@ -71,8 +70,26 @@ const SignInPage = () => {
           <CardHeader className="space-y-1">
             <div className="flex justify-center">
               <div className="flex items-center space-x-2 mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-garage-blue"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.6-.4-1-1-1h-2"/><path d="M5 17H3c-.6 0-1-.4-1-1v-3c0-.6.4-1 1-1h2"/><rect width="14" height="8" x="5" y="9" rx="2"/><circle cx="9" cy="17" r="2"/><circle cx="15" cy="17" r="2"/><path d="M5 9 8 2h8l3 7"/></svg>
-                <h1 className="text-2xl font-bold text-garage-blue">Garage Tracker</h1>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-garage-blue"
+                >
+                  <circle cx="5.5" cy="17.5" r="3.5" />
+                  <circle cx="18.5" cy="17.5" r="3.5" />
+                  <path d="M5.5 17.5L8 14h4l2 3h3" />
+                  <path d="M18.5 17.5L16 14l-3-3-1-3" />
+                  <path d="M6.5 10.5h3" />
+                  <path d="M14 10.5h3l3 3" />
+                </svg>
+                <h1 className="text-2xl font-bold text-garage-blue">Sike Rentals</h1>
               </div>
             </div>
             <CardTitle className="text-2xl text-center">Sign In</CardTitle>
