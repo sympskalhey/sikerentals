@@ -188,4 +188,5 @@ This project is built with:
 - TypeScript
 - React
 - shadcn-ui
-- Tailwind CSSS
+- Tailwind CSSS#   s i k e r e n t a l s  
+ 
