@@ -46,7 +46,7 @@ const SignInPage = () => {
       toast.success("Signed in successfully");
       navigate('/');
     } catch (error: any) {
-      toast.error(error.message || "Failed to sign in. Please check your credentials.");
+      toast.error(error.message || "Failed to sign in. Please  check your credentials.");
       console.error(error);
     } finally {
       setIsLoading(false);

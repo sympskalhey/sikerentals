@@ -100,7 +100,7 @@ const SignUpPage = () => {
               <Alert className="mb-4 border-green-500">
                 <AlertDescription className="text-center">
                   <p className="mb-2">Your account has been created successfully!</p>
-                  <p className="mb-4">Please check your email ({userEmail}) to verify your account before signing in.</p>
+                  <p className="mb-4">Please  check your email ({userEmail}) to verify your account before signing in.</p>
                   <Button onClick={() => navigate("/signin")} className="bg-garage-blue hover:bg-garage-blue/90">
                     Go to Sign In
                   </Button>
