@@ -87,7 +87,7 @@ const SignUpPage = () => {
                   <path d="M6.5 10.5h3" />
                   <path d="M14 10.5h3l3 3" />
                 </svg>
-                <h1 className="text-2xl font-bold text-garage-blue">Sike Rentals</h1>
+                <h1 className="text-2xl font-bold text-garage-blue">Saiku Rentals</h1>
               </div>
             </div>
             <CardTitle className="text-2xl text-center">Create Account</CardTitle>

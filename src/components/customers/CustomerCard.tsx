@@ -41,7 +41,7 @@ const CustomerCard: React.FC<CustomerCardProps> = ({ customer }) => {
               <UserRound className="h-8 w-8 text-gray-500" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">{customer.email}</p>
+              <p className="text-sm text-gray-500">{customer.idNumber}</p>
               <p className="text-sm text-gray-500">{customer.phone}</p>
               <p className="text-sm text-gray-500 line-clamp-1">{customer.address}</p>
             </div>

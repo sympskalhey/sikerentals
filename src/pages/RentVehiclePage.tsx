@@ -41,7 +41,7 @@ const RentVehicleContent = () => {
     const searchLower = searchTerm.toLowerCase();
     return (
       customer.fullName.toLowerCase().includes(searchLower) ||
-      customer.email.toLowerCase().includes(searchLower) ||
+      customer.idNumber.toLowerCase().includes(searchLower) ||
       customer.phone.toLowerCase().includes(searchLower) ||
       customer.licenseNumber.toLowerCase().includes(searchLower)
     );
@@ -127,7 +127,7 @@ const RentVehicleContent = () => {
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
                 <Input 
-                  placeholder="Search customers by name, email, phone..." 
+                  placeholder="Search customers by name, id number, phone..." 
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-10"
@@ -165,7 +165,7 @@ const RentVehicleContent = () => {
                         <div className="flex-grow">
                           <h3 className="font-medium">{customer.fullName}</h3>
                           <p className="text-sm text-gray-600">
-                            {customer.email} • {customer.phone}
+                            {customer.idNumber} • {customer.phone}
                           </p>
                           <p className="text-sm text-gray-600">
                             License: {customer.licenseNumber}

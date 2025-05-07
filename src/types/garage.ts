@@ -90,7 +90,7 @@ export interface Incident {
 export interface Renter {
   id?: string; // Add optional id field for customer reference
   fullName: string;
-  email: string;
+  idNumber: string;
   phone: string;
   address: string;
   licenseNumber: string;

@@ -123,7 +123,7 @@ const RentalCard: React.FC<RentalCardProps> = ({ rental, vehicle }) => {
           <div>
             <h3 className="font-medium">Renter</h3>
             <p className="text-sm">{rental.renter.fullName}</p>
-            <p className="text-sm text-gray-500">{rental.renter.email} | {rental.renter.phone}</p>
+            <p className="text-sm text-gray-500">{rental.renter.idNumber} | {rental.renter.phone}</p>
           </div>
           
           <div className="grid grid-cols-2 gap-x-4">

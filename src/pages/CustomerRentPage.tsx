@@ -126,8 +126,8 @@ const CustomerRentContent = () => {
                   <p className="font-medium">{customer.fullName}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Email</p>
-                  <p className="font-medium">{customer.email}</p>
+                  <p className="text-sm text-muted-foreground">Id Card Number</p>
+                  <p className="font-medium">{customer.idNumber}</p>
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Phone</p>

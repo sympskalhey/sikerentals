@@ -142,10 +142,10 @@ const CustomerForm: React.FC<CustomerFormProps> = ({ customer, onSubmit }) => {
 </div>
 
         <div>
-          <Label htmlFor="licenseNumber">Driver's License Number*</Label>
+          <Label htmlFor="licenseNumber">Driver's License Number</Label>
           <Input
             id="licenseNumber"
-            {...register('licenseNumber', { required: "Driver's license number is required" })}
+            {...register('licenseNumber',)}
             placeholder="Axxxxxx"
             className={errors.licenseNumber ? 'border-red-500' : ''}
           />

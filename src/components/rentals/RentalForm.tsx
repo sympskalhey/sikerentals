@@ -26,10 +26,10 @@ type RentalFormProps = {
 };
 
 const RENTAL_DURATIONS = [
-  { value: '24', label: '24 hours', baseFee: 100, multiplier: 1 },
-  { value: '48', label: '2 days (48 hours)', baseFee: 100, multiplier: 1.9 },
-  { value: '72', label: '3 days (72 hours)', baseFee: 100, multiplier: 2.7 },
-  { value: '168', label: '1 week (7 days)', baseFee: 100, multiplier: 5.5 },
+  { value: '24', label: '24 hours', baseFee: 280, multiplier: 1 },
+  { value: '48', label: '2 days (48 hours)', baseFee: 560, multiplier: 1 },
+  { value: '72', label: '3 days (72 hours)', baseFee: 840, multiplier: 1 },
+  { value: '168', label: '1 week (7 days)', baseFee: 1960, multiplier: 1 },
 ];
 
 const RentalForm: React.FC<RentalFormProps> = ({ vehicle, onSubmit, customerData }) => {
@@ -37,24 +37,29 @@ const RentalForm: React.FC<RentalFormProps> = ({ vehicle, onSubmit, customerData
   const [idImage, setIdImage] = useState<File | null>(null);
   const [idImagePreview, setIdImagePreview] = useState<string | undefined>(undefined);
   const [rentalDuration, setRentalDuration] = useState<string>('24'); // Default 24 hours
-  const [rentalFee, setRentalFee] = useState<number>(100); // Default rental fee
+  const [rentalFee, setRentalFee] = useState<number>(280); // Default rental fee
   
   const { register, handleSubmit, formState: { errors }, setValue, watch, reset } = useForm();
   
-  // Pre-fill the form if customer data is provided
-  useEffect(() => {
-    if (customerData) {
-      setValue('fullName', customerData.fullName);
-      setValue('email', customerData.email);
-      setValue('phone', customerData.phone);
+ // Pre-fill the form if customer data is provided
+useEffect(() => {
+  if (customerData) {
+    setValue('fullName', customerData.fullName);
+    setValue('idNumber', customerData.idNumber);
+    setValue('phone', customerData.phone);
+    
+    // Only set address if it exists
+    if (customerData.address) {
       setValue('address', customerData.address);
-      setValue('licenseNumber', customerData.licenseNumber);
-      
-      if (customerData.idImageUrl) {
-        setIdImagePreview(customerData.idImageUrl);
-      }
     }
-  }, [customerData, setValue]);
+    
+    setValue('licenseNumber', customerData.licenseNumber);
+    
+    if (customerData.idImageUrl) {
+      setIdImagePreview(customerData.idImageUrl);
+    }
+  }
+}, [customerData, setValue]);
   
   // Update rental fee when duration changes
   useEffect(() => {
@@ -119,7 +124,7 @@ const RentalForm: React.FC<RentalFormProps> = ({ vehicle, onSubmit, customerData
         endTime: endTime.toISOString(),
         renter: {
           fullName: data.fullName,
-          email: data.email,
+          idNumber: data.idNumber,
           phone: data.phone,
           address: data.address,
           licenseNumber: data.licenseNumber,
@@ -227,7 +232,7 @@ const RentalForm: React.FC<RentalFormProps> = ({ vehicle, onSubmit, customerData
           </div>
           
           <div>
-            <Label htmlFor="rentalFee">Rental Fee ($)</Label>
+            <Label htmlFor="rentalFee">Rental Fee (MVR)</Label>
             <Input
               id="rentalFee"
               type="number"
@@ -267,25 +272,25 @@ const RentalForm: React.FC<RentalFormProps> = ({ vehicle, onSubmit, customerData
           
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="email">Email*</Label>
+              <Label htmlFor="idNumber">ID Number*</Label>
               <Input
-                id="email"
-                type="email"
-                {...register('email', { 
-                  required: 'Email is required',
+                id="idNumber"
+                type="idNumber"
+                {...register('idNumber', { 
+                  required: 'Id Card Number is required',
                   pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: "Invalid email address"
+                    value: /^[A-Z0-9]+$/i,
+                    message: "Invalid ID Card Number"
                   }
                 })}
                 disabled={!!customerData}
                 className={cn(
-                  errors.email ? 'border-red-500' : '',
+                  errors.idNumber ? 'border-red-500' : '',
                   customerData ? 'bg-gray-50' : ''
                 )}
               />
-              {errors.email && (
-                <p className="text-sm text-red-500 mt-1">{errors.email.message as string}</p>
+              {errors.idNumber && (
+                <p className="text-sm text-red-500 mt-1">{errors.idNumber.message as string}</p>
               )}
             </div>
             
@@ -307,26 +312,23 @@ const RentalForm: React.FC<RentalFormProps> = ({ vehicle, onSubmit, customerData
           </div>
           
           <div>
-            <Label htmlFor="address">Address*</Label>
-            <Input
-              id="address"
-              {...register('address', { required: 'Address is required' })}
-              disabled={!!customerData}
-              className={cn(
-                errors.address ? 'border-red-500' : '',
-                customerData ? 'bg-gray-50' : ''
-              )}
-            />
-            {errors.address && (
-              <p className="text-sm text-red-500 mt-1">{errors.address.message as string}</p>
-            )}
-          </div>
+  <Label htmlFor="address">Address</Label>
+  <Input
+    id="address"
+    {...register('address')}
+    placeholder="address / island name"
+    className={errors.address ? 'border-red-500' : ''}
+  />
+  {errors.address && (
+    <p className="text-sm text-red-500 mt-1">{errors.address.message as string}</p>
+  )}
+</div>
           
           <div>
-            <Label htmlFor="licenseNumber">Driver's License Number*</Label>
+            <Label htmlFor="licenseNumber">Driver's License Number</Label>
             <Input
               id="licenseNumber"
-              {...register('licenseNumber', { required: "Driver's license number is required" })}
+              {...register('licenseNumber',)}
               disabled={!!customerData}
               className={cn(
                 errors.licenseNumber ? 'border-red-500' : '',
