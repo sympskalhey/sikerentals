@@ -51,7 +51,7 @@ const Header = () => {
           <div className="flex items-center">
             <NavLink to="/" className="flex items-center text-garage-blue">
               <Bike className="mr-2 h-6 w-6" />
-              <span className="font-bold text-xl">Sike Rentals</span>
+              <span className="font-bold text-xl">Saiku Rentals</span>
             </NavLink>
           </div>
           
@@ -171,7 +171,7 @@ const Header = () => {
           <div className="flex justify-between items-center p-4 border-b">
             <div className="flex items-center text-garage-blue">
               <Bike className="mr-2 h-6 w-6" />
-              <span className="font-bold text-xl">Garage Tracker</span>
+              <span className="font-bold text-xl">Saiku Rentals</span>
             </div>
             <button onClick={closeMobileMenu}>
               <X className="h-6 w-6" />

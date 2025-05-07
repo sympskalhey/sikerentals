@@ -63,17 +63,20 @@ const VehicleForm: React.FC<VehicleFormProps> = ({
     const file = e.target.files?.[0];
     if (file) {
       setImageFile(file);
-      // Create an object URL that will persist until the component is unmounted
-      const objectUrl = URL.createObjectURL(file);
-      setSelectedImage(objectUrl);
       
-      // Update the form value with the object URL instead of just the filename
-      form.setValue("imageUrl", objectUrl);
+      // Create a preview using FileReader
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const dataUrl = event.target?.result as string;
+        setSelectedImage(dataUrl);
+        form.setValue("imageUrl", dataUrl);
+      };
+      reader.readAsDataURL(file);
     }
   };
-
+  
   const handleSubmit = (values: z.infer<typeof vehicleSchema>) => {
-    // Ensure we're passing the object URL for the image if available
+    // No need for special processing here since we're already storing the data URL
     onSubmit({
       make: values.make,
       model: values.model,
@@ -83,7 +86,7 @@ const VehicleForm: React.FC<VehicleFormProps> = ({
       vin: values.vin || undefined,
       purchaseDate: values.purchaseDate || undefined,
       purchasePrice: values.purchasePrice ? Number(values.purchasePrice) : undefined,
-      imageUrl: selectedImage || values.imageUrl || undefined,
+      imageUrl: values.imageUrl || undefined,
     });
     
     if (!initialData) {
@@ -92,15 +95,6 @@ const VehicleForm: React.FC<VehicleFormProps> = ({
       setImageFile(null);
     }
   };
-
-  // Clean up object URL when component unmounts to avoid memory leaks
-  React.useEffect(() => {
-    return () => {
-      if (selectedImage && selectedImage.startsWith('blob:')) {
-        URL.revokeObjectURL(selectedImage);
-      }
-    };
-  }, [selectedImage]);
 
   return (
     <Form {...form}>

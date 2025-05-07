@@ -17,7 +17,7 @@ export interface Vehicle {
 export interface Customer {
   id: string;
   fullName: string;
-  email: string;
+  idNumber: string;
   phone: string;
   address: string;
   licenseNumber: string;

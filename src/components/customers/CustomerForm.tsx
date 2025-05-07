@@ -22,7 +22,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({ customer, onSubmit }) => {
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
     defaultValues: customer ? {
       fullName: customer.fullName,
-      email: customer.email,
+      idNumber: customer.idNumber,
       phone: customer.phone,
       address: customer.address,
       licenseNumber: customer.licenseNumber,
@@ -95,22 +95,22 @@ const CustomerForm: React.FC<CustomerFormProps> = ({ customer, onSubmit }) => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <Label htmlFor="email">Email*</Label>
+            <Label htmlFor="idNumber">ID Card Number*</Label>
             <Input
-              id="email"
-              type="email"
-              {...register('email', { 
-                required: 'Email is required',
+              id="IdNumber"
+              type="IdNumber"
+              {...register('idNumber', { 
+                required: 'ID number is required',
                 pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                  message: "Invalid email address"
+                  value: /^[A-Z0-9]+$/i,
+                  message: "Invalid ID number format."
                 }
               })}
-              placeholder="ahmed.mohamed@example.com"
-              className={errors.email ? 'border-red-500' : ''}
+              placeholder="A123456"
+              className={errors.idNumber ? 'border-red-500' : ''}
             />
-            {errors.email && (
-              <p className="text-sm text-red-500 mt-1">{errors.email.message as string}</p>
+            {errors.idNumber && (
+              <p className="text-sm text-red-500 mt-1">{errors.idNumber.message as string}</p>
             )}
           </div>
 
@@ -129,17 +129,17 @@ const CustomerForm: React.FC<CustomerFormProps> = ({ customer, onSubmit }) => {
         </div>
 
         <div>
-          <Label htmlFor="address">Address*</Label>
-          <Input
-            id="address"
-            {...register('address', { required: 'Address is required' })}
-            placeholder="address / island name"
-            className={errors.address ? 'border-red-500' : ''}
-          />
-          {errors.address && (
-            <p className="text-sm text-red-500 mt-1">{errors.address.message as string}</p>
-          )}
-        </div>
+  <Label htmlFor="address">Address</Label>
+  <Input
+    id="address"
+    {...register('address')}
+    placeholder="address / island name"
+    className={errors.address ? 'border-red-500' : ''}
+  />
+  {errors.address && (
+    <p className="text-sm text-red-500 mt-1">{errors.address.message as string}</p>
+  )}
+</div>
 
         <div>
           <Label htmlFor="licenseNumber">Driver's License Number*</Label>
