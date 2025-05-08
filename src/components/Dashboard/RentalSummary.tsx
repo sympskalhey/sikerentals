@@ -108,7 +108,7 @@ const RentalSummary = () => {
               {rentedVehicles.map(({rental, vehicle}) => vehicle && (
                 <li key={rental.id} className="p-3 bg-green-50 rounded flex justify-between items-center">
                   <div>
-                    <p className="font-medium">{vehicle.year} {vehicle.make} {vehicle.model}</p>
+                    <p className="font-medium">{vehicle.licensePlate}</p>
                     <p className="text-sm text-gray-600">Rented by: {rental.renter.fullName}</p>
                   </div>
                   <div className="text-right">

@@ -1,20 +1,49 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useGarage } from '@/context/GarageContext';
 import { Button } from '@/components/ui/button';
-import { PlusCircle, Search } from 'lucide-react';
+import { PlusCircle, Search, RefreshCw } from 'lucide-react';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useNavigate } from 'react-router-dom';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import RentalCard from '@/components/rentals/RentalCard';
 
 const RentalsList = () => {
-  const { rentals, vehicles } = useGarage();
+  const { rentals, vehicles, refreshSubscriptions, isRefreshing, lastRefreshed } = useGarage();
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeTab, setActiveTab] = useState<string>("active");
+  const [activeTab, setActiveTab] = useState("active");
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
+
+  // Force refresh every 30 seconds to catch any status changes
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRefreshTrigger(prev => prev + 1);
+    }, 30000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Format the last refresh time
+  const formatLastRefreshed = () => {
+    if (!lastRefreshed) return 'Never';
+    
+    // Format the date as a readable string
+    return new Intl.DateTimeFormat('en-US', {
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    }).format(lastRefreshed);
+  };
+
+  // Handle manual refresh
+  const handleRefresh = () => {
+    console.log('Manual refresh triggered for rentals');
+    refreshSubscriptions();
+  };
   
   const filteredRentals = rentals.filter(rental => {
     // Filter by status
@@ -33,7 +62,7 @@ const RentalsList = () => {
     
     return (
       rental.renter.fullName.toLowerCase().includes(searchLower) ||
-      rental.renter.email.toLowerCase().includes(searchLower) ||
+      rental.renter.idNumber.toLowerCase().includes(searchLower) ||
       vehicle.make.toLowerCase().includes(searchLower) ||
       vehicle.model.toLowerCase().includes(searchLower) ||
       vehicle.licensePlate.toLowerCase().includes(searchLower)
@@ -47,10 +76,33 @@ const RentalsList = () => {
           <h1 className="text-3xl font-bold text-garage-blue">Vehicle Rentals</h1>
           <p className="text-muted-foreground">Manage your vehicle rentals.</p>
         </div>
-        <Button className="bg-garage-blue hover:bg-garage-blue/90" onClick={() => navigate('/vehicles')}>
-          <PlusCircle className="mr-2 h-4 w-4" />
-          Rent a Vehicle
-        </Button>
+        <div className="flex space-x-2">
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button 
+                  variant="outline" 
+                  size="icon" 
+                  onClick={handleRefresh} 
+                  disabled={isRefreshing}
+                  className="h-10 w-10"
+                >
+                  <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
+                  <span className="sr-only">Refresh data</span>
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Refresh data</p>
+                <p className="text-xs text-muted-foreground">Last refreshed: {formatLastRefreshed()}</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+          
+          <Button className="bg-garage-blue hover:bg-garage-blue/90" onClick={() => navigate('/vehicles')}>
+            <PlusCircle className="mr-2 h-4 w-4" />
+            Rent a Vehicle
+          </Button>
+        </div>
       </div>
 
       <div className="relative mb-6">

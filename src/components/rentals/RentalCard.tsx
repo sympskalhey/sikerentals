@@ -104,7 +104,7 @@ const RentalCard: React.FC<RentalCardProps> = ({ rental, vehicle }) => {
       <CardHeader className="pb-3">
         <CardTitle className="flex justify-between items-center">
           <span>
-            {vehicle.year} {vehicle.make} {vehicle.model}
+            {vehicle.licensePlate}
           </span>
           <span className={`text-sm px-2 py-1 rounded ${
             rental.status === 'active' 

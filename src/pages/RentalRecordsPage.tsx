@@ -110,12 +110,12 @@ const RentalRecordsList = () => {
         
         const customerMatch = customer && (
           customer.fullName.toLowerCase().includes(searchLower) ||
-          customer.email.toLowerCase().includes(searchLower)
+          customer.idNumber.toLowerCase().includes(searchLower)
         );
         
         const renterMatch = 
           rental.renter.fullName.toLowerCase().includes(searchLower) ||
-          rental.renter.email.toLowerCase().includes(searchLower);
+          rental.renter.idNumber.toLowerCase().includes(searchLower);
         
         return vehicleMatch || customerMatch || renterMatch;
       }
@@ -281,7 +281,7 @@ const RentalRecordsList = () => {
                   return (
                     <TableRow key={rental.id}>
                       <TableCell className="font-medium">
-                        {vehicle ? `${vehicle.year} ${vehicle.make} ${vehicle.model}` : 'Unknown Vehicle'}
+                        {vehicle ? `${vehicle.licensePlate}` : 'Unknown Vehicle'}
                       </TableCell>
                       <TableCell>{rental.renter.fullName}</TableCell>
                       <TableCell>{format(new Date(rental.startTime), 'MMM d, yyyy')}</TableCell>

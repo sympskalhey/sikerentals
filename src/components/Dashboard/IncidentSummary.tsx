@@ -44,7 +44,7 @@ const IncidentSummary = () => {
           
           <div className="bg-garage-silver/30 p-3 rounded-lg">
             <p className="text-sm text-gray-500 mb-1">Total Cost</p>
-            <p className="text-2xl font-bold">MVR{totalIncidentCost.toFixed(2)}</p>
+            <p className="text-2xl font-bold">MVR  {totalIncidentCost.toFixed(2)}</p>
           </div>
           
           <div className="bg-garage-silver/30 p-3 rounded-lg">

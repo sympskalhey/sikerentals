@@ -1,5 +1,4 @@
-
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import VehicleSummary from '@/components/Dashboard/VehicleSummary';
@@ -8,12 +7,13 @@ import IncidentSummary from '@/components/Dashboard/IncidentSummary';
 import RentalSummary from '@/components/Dashboard/RentalSummary';
 import { GarageProvider, useGarage } from '@/context/GarageContext';
 import { Button } from '@/components/ui/button';
-import { PlusCircle, FileText } from 'lucide-react';
+import { PlusCircle, FileText, Menu, X, Wrench } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const DashboardContent = () => {
   const navigate = useNavigate();
   const { vehicles, rentals } = useGarage();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   // Ensure vehicle rental status is consistent with active rentals
   useEffect(() => {
@@ -37,7 +37,8 @@ const DashboardContent = () => {
 
   return (
     <>
-      <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 space-y-4 md:space-y-0">
+      {/* Desktop Header */}
+      <div className="hidden md:flex md:flex-row md:items-center justify-between mb-8">
         <div>
           <h1 className="text-3xl font-bold text-garage-blue">Dashboard</h1>
           <p className="text-muted-foreground">Manage all aspects of your vehicles in one place.</p>
@@ -47,14 +48,51 @@ const DashboardContent = () => {
             <PlusCircle className="mr-2 h-4 w-4" />
             Add Vehicle
           </Button>
-          <Button variant="outline" onClick={() => navigate('/maintenance/add')}>
+          <Button className="bg-garage-blue hover:bg-garage-blue/90" onClick={() => navigate('/maintenance/add')}>
+            <Wrench className="mr-2 h-4 w-4" />
             Add Service Record
           </Button>
-          <Button variant="outline" onClick={() => navigate('/rental-records')}>
+          <Button className="bg-garage-blue hover:bg-garage-blue/90" onClick={() => navigate('/rental-records')}>
             <FileText className="mr-2 h-4 w-4" />
             Rental Records
           </Button>
         </div>
+      </div>
+      
+      {/* Mobile Header */}
+      <div className="md:hidden mb-6">
+        <div className="flex justify-between items-center mb-4">
+          <div>
+            <h1 className="text-2xl font-bold text-garage-blue">Dashboard</h1>
+            <p className="text-sm text-muted-foreground">Manage your vehicles</p>
+          </div>
+          <Button 
+            variant="outline" 
+            size="icon" 
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </Button>
+        </div>
+        
+        {/* Mobile Action Buttons */}
+        {mobileMenuOpen && (
+          <div className="grid grid-cols-1 gap-2 mb-4 border-b pb-4">
+            <Button className="w-full bg-garage-blue hover:bg-garage-blue/90 justify-start" onClick={() => navigate('/vehicles/add')}>
+              <PlusCircle className="mr-2 h-4 w-4" />
+              Add Vehicle
+            </Button>
+            <Button className="w-full bg-garage-blue hover:bg-garage-blue/90 justify-start" onClick={() => navigate('/maintenance/add')}>
+              <Wrench className="mr-2 h-4 w-4" />
+              Add Service Record
+            </Button>
+            <Button className="w-full bg-garage-blue hover:bg-garage-blue/90 justify-start" onClick={() => navigate('/rental-records')}>
+              <FileText className="mr-2 h-4 w-4" />
+              Rental Records
+            </Button>
+          </div>
+        )}
       </div>
       
       <div className="grid grid-cols-1 gap-8">

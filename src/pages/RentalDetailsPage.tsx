@@ -121,8 +121,8 @@ const RentalDetailsContent = () => {
                 </div>
                 
                 <div>
-                  <p className="text-sm text-muted-foreground">Email</p>
-                  <p className="font-medium">{rental.renter.email}</p>
+                  <p className="text-sm text-muted-foreground">ID Number</p>
+                  <p className="font-medium">{rental.renter.idNumber}</p>
                 </div>
               </div>
               
@@ -205,7 +205,7 @@ const RentalDetailsContent = () => {
                 <div className="mb-4">
                   <img 
                     src={vehicle.imageUrl} 
-                    alt={`${vehicle.make} ${vehicle.model}`} 
+                    alt={`${vehicle.licensePlate} ${vehicle.make} ${vehicle.model}`} 
                     className="w-full h-40 object-cover rounded-md"
                   />
                 </div>
@@ -214,7 +214,7 @@ const RentalDetailsContent = () => {
               <div>
                 <p className="text-sm text-muted-foreground">Vehicle</p>
                 <p className="font-medium">
-                  {vehicle.year} {vehicle.make} {vehicle.model}
+                 {vehicle.licensePlate} {vehicle.year} {vehicle.make} {vehicle.model}
                 </p>
               </div>
               
